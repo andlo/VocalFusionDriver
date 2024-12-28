@@ -14,5 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: ./driver/make
+    - name: Make
+      run: |
+        cd driver
+        make -j $(nproc) KDIR="/lib/modules/$(uname -r)/build" all
