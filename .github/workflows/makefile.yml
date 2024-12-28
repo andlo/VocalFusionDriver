@@ -50,6 +50,7 @@ jobs:
           fi
           echo "release_id=$release_id" >> $GITHUB_OUTPUT
   build:
+    needs: [get-date-release-name]
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
@@ -57,3 +58,15 @@ jobs:
       run: |
         cd driver
         make -j $(nproc) KDIR="/lib/modules/$(uname -r)/build" all
+
+    - name: Upload to release
+      uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: /driver/vocalfusion-soundcard.ko
+        release_id: ${{ needs.get-date-release-name.outputs.release_id }}
+        draft: false
+        overwrite: true
+        prerelease: false
+        verbose: true
