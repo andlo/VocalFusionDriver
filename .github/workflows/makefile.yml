@@ -64,7 +64,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: /driver/vocalfusion-soundcard.ko
+        file: /home/andlo/WORK/actions-runner.OLD/_work/VocalFusionDriver/VocalFusionDriver/driver/vocalfusion-soundcard.ko
         release_id: ${{ needs.get-date-release-name.outputs.release_id }}
         draft: false
         overwrite: true
